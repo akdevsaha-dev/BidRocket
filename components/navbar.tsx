@@ -27,9 +27,9 @@ export const Navbar = () => {
     </Link>
   ))}
 </div>
-        <div className="px-10 py-1 shadow-sm shadow-cyan-800 hover:border-b-[1px] border-b-cyan-400 transition duration-300  rounded-full hover:text-neutral-300">
+        <Link href={"/signin"} className="px-10 py-1 shadow-sm shadow-cyan-800 hover:border-b-[1px] border-b-cyan-400 transition duration-300  rounded-full hover:text-neutral-300">
           Join
-        </div>
+        </Link>
       </div>
     </div>
   );
