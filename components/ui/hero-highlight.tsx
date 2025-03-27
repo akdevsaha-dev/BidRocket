@@ -17,11 +17,11 @@ export const HeroHighlight = ({
 
   // SVG patterns for dark theme only
   const dotPatterns = {
-    dark: {
-      default: `url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32' width='16' height='16' fill='none'%3E%3Ccircle fill='%23404040' id='pattern-circle' cx='10' cy='10' r='2.5'%3E%3C/circle%3E%3C/svg%3E")`,
-      hover: `url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32' width='16' height='16' fill='none'%3E%3Ccircle fill='%238183f4' id='pattern-circle' cx='10' cy='10' r='2.5'%3E%3C/circle%3E%3C/svg%3E")`,
-    },
-  };
+  dark: {
+    default: `url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20' width='10' height='10' fill='none'%3E%3Ccircle fill='%231a1a1a' id='pattern-circle' cx='10' cy='10' r='1'%3E%3C/circle%3E%3C/svg%3E")`,
+    hover: `url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20' width='10' height='10' fill='none'%3E%3Ccircle fill='%235051b5' id='pattern-circle' cx='10' cy='10' r='2.5'%3E%3C/circle%3E%3C/svg%3E")`,
+  },
+};
 
   function handleMouseMove({
     currentTarget,
@@ -34,22 +34,25 @@ export const HeroHighlight = ({
     mouseX.set(clientX - left);
     mouseY.set(clientY - top);
   }
+
   return (
     <div
       className={cn(
-        "group relative flex h-[42rem] w-full items-center justify-center bg-black",
+        "group relative flex min-h-screen w-full items-center justify-center bg-black",
         containerClassName,
       )}
       onMouseMove={handleMouseMove}
     >
+      {/* Background div for the dot pattern, constrained to the left 50% */}
       <div
-        className="pointer-events-none absolute inset-0"
+        className="pointer-events-none absolute inset-0 w-full md:w-full"
         style={{
           backgroundImage: dotPatterns.dark.default,
         }}
       />
+      {/* Hover effect div, also constrained to the left 50% */}
       <motion.div
-        className="pointer-events-none absolute inset-0 opacity-0 transition duration-300 group-hover:opacity-100"
+        className="pointer-events-none absolute inset-0 w-full md:w-full opacity-0 transition duration-700 group-hover:opacity-100"
         style={{
           backgroundImage: dotPatterns.dark.hover,
           WebkitMaskImage: useMotionTemplate`
@@ -68,8 +71,9 @@ export const HeroHighlight = ({
           `,
         }}
       />
-
-      <div className={cn("relative z-20", className)}>{children}</div>
+      <div className={cn("relative z-40 w-[90%]", className)}>
+        {children}
+      </div>
     </div>
   );
 };
@@ -100,7 +104,7 @@ export const Highlight = ({
         display: "inline",
       }}
       className={cn(
-        `relative inline-block rounded-lg bg-gradient-to-r from-indigo-500 to-purple-500 px-1 pb-1`,
+        `relative inline-block rounded-lg bg-gradient-to-r from-transparent via-[#00b4d8] to-[#caf0f8] px-1 pb-1`,
         className,
       )}
     >

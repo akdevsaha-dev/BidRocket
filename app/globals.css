@@ -1,11 +1,14 @@
 @import "tailwindcss";
 
-@custom-variant dark (&:is(.dark *));
 
-body{
+html, body {
+    overflow-x: hidden;
+    width: 100vw;
+  }
+
+  body{
     background-color: black;
-}
-
+  }
 :root {
     --radius: 0.625rem;
     --background: oklch(1 0 0);

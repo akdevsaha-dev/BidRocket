@@ -2,6 +2,7 @@
 
 import { cn } from "@/lib/utils";
 import { motion, MotionProps } from "motion/react";
+import { Outfit } from "next/font/google";
 import { useEffect, useRef, useState } from "react";
 
 interface TypingAnimationProps extends MotionProps {
@@ -12,6 +13,10 @@ interface TypingAnimationProps extends MotionProps {
   as?: React.ElementType;
   startOnView?: boolean;
 }
+const outfit = Outfit({
+  weight:"200",
+  subsets:["latin"]
+})
 
 export function TypingAnimation({
   children,
@@ -79,7 +84,7 @@ export function TypingAnimation({
     <MotionComponent
       ref={elementRef}
       className={cn(
-        "text-xl font-thin leading-[2rem] tracking-[-0.02em] text-gray-300",
+        `text-xl ${outfit.className} font-light leading-[2rem] tracking-[-0.02em] px-10 text-gray-400`,
         className,
       )}
       {...props}
