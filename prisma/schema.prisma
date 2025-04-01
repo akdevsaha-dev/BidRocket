@@ -76,21 +76,33 @@ model User {
   Bids          Bid[]     @relation("UserBids")
   accounts      Account[]
   sessions      Session[]
+  wonAuctions   Auction[] @relation("AuctionWinner")
 
   @@map("users")
 }
 
 model Auction {
-  id           String   @id @default(cuid())
-  title        String
-  details      String
-  startPrice   Float
-  currentPrice Float
-  endsAt       DateTime
-  sellerId     String
-  seller       User     @relation("SellerAuctions", fields: [sellerId], references: [id])
-  bids         Bid[]    @relation("AuctionBids")
+  id              String        @id @default(cuid())
+  title           String
+  description     String?
+  startPrice      Float
+  currentBid      Float         @default(0)
+  reservePrice    Float?
+  minBidIncrement Float         @default(1.0)
+  startsAt        DateTime?
+  status          AuctionStatus @default(PENDING)
+  winnerId        String?
+  createdAt       DateTime      @default(now())
+  updatedAt       DateTime      @updatedAt
+  winner          User?         @relation("AuctionWinner", fields: [winnerId], references: [id])
+  endsAt          DateTime
+  sellerId        String
+  seller          User          @relation("SellerAuctions", fields: [sellerId], references: [id])
+  bids            Bid[]         @relation("AuctionBids")
+  images          Image[]       @relation("AuctionImages")
 
+  @@index([startsAt, endsAt, status])
+  @@index([sellerId])
   @@map("auctions")
 }
 
@@ -105,11 +117,12 @@ model Bid {
   @@map("bids")
 }
 
-model Images {
+model Image {
   id        String   @id @default(cuid())
   url       String?
   auctionId String
   createdAt DateTime @default(now())
+  auction   Auction  @relation("AuctionImages", fields: [auctionId], references: [id])
 }
 
 model VerificationToken {
