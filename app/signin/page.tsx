@@ -8,6 +8,7 @@ import { IconBrandGithub, IconBrandGoogle } from "@tabler/icons-react";
 import { Label } from "@radix-ui/react-label";
 import { Input } from "@/components/ui/input";
 import { Eye, EyeOff } from "lucide-react";
+import { signIn } from "@/auth";
 
 const World = dynamic(
   () => import("@/components/ui/globe").then((m) => m.World),
@@ -404,11 +405,12 @@ const sampleArcs = [
 ];
 
 export default function Signin() {
+  const [name, setName] = useState("");
+  const [LastName, setLastName] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    console.log("Form submitted");
-  };
+  const handleSubmit = () => {};
   return (
     <div className="h-screen w-full flex ">
       <div className="h-screen w-[48%] border-r-[1px] border-r-neutral-900">
@@ -489,6 +491,9 @@ export default function Signin() {
               <button
                 className="group/btn shadow-input relative flex h-10 w-full items-center justify-start space-x-2 rounded-md bg-gray-50 px-4 font-medium text-black dark:bg-zinc-900 dark:shadow-[0px_0px_1px_1px_#262626]"
                 type="submit"
+                onClick={async () => {
+                  await signIn("github", { redirectTo: "/auctions" });
+                }}
               >
                 <IconBrandGithub className="h-4 w-4 text-neutral-800 dark:text-neutral-300" />
                 <span className="text-sm text-neutral-700 dark:text-neutral-300">
@@ -499,6 +504,9 @@ export default function Signin() {
               <button
                 className="group/btn shadow-input relative flex h-10 w-full items-center justify-start space-x-2 rounded-md bg-gray-50 px-4 font-medium text-black dark:bg-zinc-900 dark:shadow-[0px_0px_1px_1px_#262626]"
                 type="submit"
+                onClick={async () => {
+                  await signIn("google", { redirectTo: "/auctions" });
+                }}
               >
                 <IconBrandGoogle className="h-4 w-4 text-neutral-800 dark:text-neutral-300" />
                 <span className="text-sm text-neutral-700 dark:text-neutral-300">
