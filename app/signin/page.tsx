@@ -8,7 +8,9 @@ import { IconBrandGithub, IconBrandGoogle } from "@tabler/icons-react";
 import { Label } from "@radix-ui/react-label";
 import { Input } from "@/components/ui/input";
 import { Eye, EyeOff } from "lucide-react";
-import { signIn } from "@/auth";
+import { signIn } from "next-auth/react";
+import toast from "react-hot-toast";
+import { useRouter } from "next/navigation";
 
 const World = dynamic(
   () => import("@/components/ui/globe").then((m) => m.World),
@@ -404,13 +406,34 @@ const sampleArcs = [
   },
 ];
 
-export default function Signin() {
+export default function Signin(e: React.FormEvent<HTMLFormElement>) {
+  const router = useRouter();
   const [name, setName] = useState("");
-  const [LastName, setLastName] = useState("");
+  const [lastName, setLastName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
-  const handleSubmit = () => {};
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    try {
+      const response = await signIn("credentials", {
+        name,
+        lastName,
+        email,
+        password,
+        redirect: false,
+      });
+      if (response?.error) {
+        toast.error("Authentication Failed. Please check your credentials");
+      } else {
+        toast.success("Logged in Successfuly");
+        router.push("/auctions");
+      }
+    } catch {
+      console.error("Login error:");
+      toast.error("An unexpected error occurred. Please try again.");
+    }
+  };
   return (
     <div className="h-screen w-full flex ">
       <div className="h-screen w-[48%] border-r-[1px] border-r-neutral-900">
@@ -445,12 +468,28 @@ export default function Signin() {
           <form className="my-8 text-white" onSubmit={handleSubmit}>
             <div className="mb-4 flex flex-col  space-y-2 md:flex-row md:space-y-0 md:space-x-2">
               <LabelInputContainer>
-                <Label htmlFor="firstname">First name</Label>
-                <Input id="firstname" placeholder="John" type="text" />
+                <Label htmlFor="name">First name</Label>
+                <Input
+                  id="name"
+                  placeholder="John"
+                  type="text"
+                  value={name}
+                  onChange={(e) => {
+                    setName(e.target.value);
+                  }}
+                />
               </LabelInputContainer>
               <LabelInputContainer>
-                <Label htmlFor="lastname">Last name</Label>
-                <Input id="lastname" placeholder="Doe" type="text" />
+                <Label htmlFor="LastName">Last name</Label>
+                <Input
+                  id="LastName"
+                  placeholder="Doe"
+                  type="text"
+                  value={lastName}
+                  onChange={(e) => {
+                    setLastName(e.target.value);
+                  }}
+                />
               </LabelInputContainer>
             </div>
             <LabelInputContainer className="mb-4">
@@ -459,6 +498,10 @@ export default function Signin() {
                 id="email"
                 placeholder="johndoe99@gmail.com"
                 type="email"
+                value={email}
+                onChange={(e) => {
+                  setEmail(e.target.value);
+                }}
               />
             </LabelInputContainer>
             <LabelInputContainer className="mb-4">
@@ -469,6 +512,10 @@ export default function Signin() {
                   placeholder="••••••••"
                   type={showPassword ? "text" : "password"}
                   className="pr-10"
+                  value={password}
+                  onChange={(e) => {
+                    setPassword(e.target.value);
+                  }}
                 />
                 <button
                   type="button"
@@ -490,7 +537,7 @@ export default function Signin() {
             <div className="flex flex-col space-y-4">
               <button
                 className="group/btn shadow-input relative flex h-10 w-full items-center justify-start space-x-2 rounded-md bg-gray-50 px-4 font-medium text-black dark:bg-zinc-900 dark:shadow-[0px_0px_1px_1px_#262626]"
-                type="submit"
+                type="button"
                 onClick={async () => {
                   await signIn("github", { redirectTo: "/auctions" });
                 }}
@@ -503,7 +550,7 @@ export default function Signin() {
               </button>
               <button
                 className="group/btn shadow-input relative flex h-10 w-full items-center justify-start space-x-2 rounded-md bg-gray-50 px-4 font-medium text-black dark:bg-zinc-900 dark:shadow-[0px_0px_1px_1px_#262626]"
-                type="submit"
+                type="button"
                 onClick={async () => {
                   await signIn("google", { redirectTo: "/auctions" });
                 }}

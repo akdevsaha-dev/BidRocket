@@ -65,10 +65,10 @@ model Session {
 
 model User {
   id            String    @id @default(cuid())
-  LastName      String?
+  lastName      String?
   name          String?
   email         String    @unique
-  password      String
+  password      String?
   createdAt     DateTime  @default(now())
   emailVerified DateTime? @map("email_verified")
   image         String?

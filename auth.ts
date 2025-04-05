@@ -18,15 +18,15 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
     Credentials({
       credentials: {
         name: { label: "Firstname" },
-        lastname: { label: "Lastname" },
+        lastName: { label: "Lastname" },
         email: { label: "email", type: "email" },
         password: { label: "Password", type: "password" },
       },
       authorize: async (credentails) => {
-        const { name, LastName, email, password } = credentails as {
+        const { name, lastName, email, password } = credentails as {
           email: string;
           name: string;
-          LastName: string;
+          lastName: string;
           password: string;
         };
         const user = await prisma.user.findUnique({
@@ -41,7 +41,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
             data: {
               email,
               name,
-              LastName,
+              lastName,
               password: hashedPassword,
             },
           });
@@ -49,7 +49,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
             id: newUser.id,
             email: newUser.email,
             name: newUser.name,
-            LastName: newUser.LastName,
+            lastName: newUser.lastName,
           };
         }
         if (!user.password) {
@@ -64,7 +64,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
           id: user.id,
           email: user.email,
           name: user.name,
-          LastName: user.LastName,
+          lastName: user.lastName,
         };
       },
     }),
