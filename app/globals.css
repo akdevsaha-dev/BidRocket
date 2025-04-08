@@ -44,6 +44,17 @@ body {
     --sidebar-border: oklch(0.922 0 0);
     --sidebar-ring: oklch(0.708 0 0);
 }
+.haha {
+    content: "";
+    position: fixed;
+    inset: 0;
+    background-image:
+        linear-gradient(#00f2ff22 1px, transparent 1px),
+        linear-gradient(90deg, #00f2ff22 1px, transparent 1px);
+    background-size: 60px 60px;
+    z-index: -1;
+    opacity: 0.05;
+}
 
 .dark {
     --background: oklch(0.145 0 0);

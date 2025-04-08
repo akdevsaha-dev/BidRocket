@@ -24,7 +24,7 @@ export const AuthedNav = () => {
     {
       logo: <Plus size={23} />,
       name: "Create Auction",
-      href: "/create-auction/:id",
+      href: "/create",
     },
     { logo: <Heart size={23} />, name: "Watchlist", href: "/watchlist/:id" },
     { logo: <User size={23} />, name: "Profile", href: "/profile/:id" },
