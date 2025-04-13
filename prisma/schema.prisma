@@ -72,6 +72,7 @@ model User {
   createdAt     DateTime  @default(now())
   emailVerified DateTime? @map("email_verified")
   image         String?
+  balance       Float?
   auctions      Auction[] @relation("SellerAuctions")
   Bids          Bid[]     @relation("UserBids")
   accounts      Account[]

@@ -8,7 +8,6 @@ export const Createauction = () => {
             List a new item for auction on our premium marketplace
           </div>
         </div>
-
         <div className="min-h-[500px] w-full mt-8 md:border-x md:border-x-neutral-900 shadow-md py-2">
           <div className="flex flex-col h-full">
             <div className="px-4 md:px-8">
@@ -70,7 +69,7 @@ export const Createauction = () => {
                       <option value="excellent">Excellent</option>
                       <option value="good">Good</option>
                       <option value="fair">Fair</option>
-                      <option value="Poor">poor</option>
+                      <option value="poor">Poor</option>
                     </select>
                     <div className="pointer-events-none absolute right-4 top-[60px] -translate-y-1/2 text-white">
                       ▼
@@ -78,11 +77,28 @@ export const Createauction = () => {
                   </div>
                 </div>
               </div>
+              <div className="w-full pt-8">
+                <div>Image URL</div>
+                <div className="">
+                  <input></input>
+                </div>
+              </div>
             </div>
           </div>
         </div>
-
-        <div className="h-[600px] w-full mt-8 rounded-md bg-white/10 backdrop-blur-lg border border-white/20 shadow-md" />
+        <div className="h-[1px] bg-gradient-to-r from-transparent-0 via-[#09c8ef] to-transparent-0 "></div>
+        <div className="flex flex-col pt-10">
+          <div className="min-h-[500px] w-full mt-8 md:border-x md:border-x-neutral-900 shadow-md py-2">
+            <div className="flex flex-col h-full">
+              <div className="px-4 md:px-8">
+                <div className="text-2xl font-semibold">Auction Settings</div>
+                <div className="text-gray-300 font-light text-sm pt-1">
+                  Set your auction parameters
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   );
