@@ -26,8 +26,8 @@ export const AuthedNav = () => {
       name: "Create Auction",
       href: "/create",
     },
-    { logo: <Heart size={23} />, name: "Watchlist", href: "/watchlist/:id" },
-    { logo: <User size={23} />, name: "Profile", href: "/profile/:id" },
+    { logo: <Heart size={23} />, name: "Watchlist", href: "/watchlist" },
+    { logo: <User size={23} />, name: "Profile", href: "/profile" },
   ];
   return (
     <div className=" hidden md:w-72 bg-[white]/1 border-r-[1px] border-r-neutral-900 min-h-screen md:grid grid-rows-10 text-white">

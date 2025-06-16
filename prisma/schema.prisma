@@ -14,9 +14,9 @@ datasource db {
 }
 
 enum AuctionStatus {
-  PENDING
+  SCHEDULED
   ACTIVE
-  ENDED
+  CLOSED
   CANCELLED
 }
 
@@ -90,8 +90,10 @@ model Auction {
   currentBid      Float         @default(0)
   reservePrice    Float?
   minBidIncrement Float         @default(1.0)
+  category        String
+  condition       String
   startsAt        DateTime?
-  status          AuctionStatus @default(PENDING)
+  status          AuctionStatus @default(SCHEDULED)
   winnerId        String?
   createdAt       DateTime      @default(now())
   updatedAt       DateTime      @updatedAt
@@ -108,12 +110,13 @@ model Auction {
 }
 
 model Bid {
-  id        String  @id @default(cuid())
+  id        String   @id @default(cuid())
   amount    Float
+  createdAt DateTime @default(now())
   auctionId String
   userId    String
-  auction   Auction @relation("AuctionBids", fields: [auctionId], references: [id])
-  User      User    @relation("UserBids", fields: [userId], references: [id])
+  auction   Auction  @relation("AuctionBids", fields: [auctionId], references: [id])
+  User      User     @relation("UserBids", fields: [userId], references: [id])
 
   @@map("bids")
 }

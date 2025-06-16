@@ -1,6 +1,1 @@
-
-export async function GET(){
-  try{
-
-  }
-}
+export async function GET() {}
